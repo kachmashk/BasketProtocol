@@ -24,6 +24,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
   runApp(App());
 }
 
@@ -45,7 +49,7 @@ class Providers extends StatelessWidget {
     return MultiProvider(
       providers: <StreamProvider>[
         StreamProvider<User?>(
-          initialData: null,
+          initialData: FirebaseAuth.instance.currentUser,
           create: (context) => FirebaseAuth.instance.authStateChanges(),
         ),
       ],
